@@ -16,7 +16,7 @@ jobs:
       -
         name: Create release
         id: release-please
-        uses: google-github-actions/release-please-action@v3
+        uses: google-github-actions/release-please-action@v4
         with:
           release-type: python
           package-name: science-containers
@@ -39,11 +39,10 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.9', '3.10', '3.11', '3.12']
-        image: ['astroconda-terminal', 'base', 'carta', 'desktop', 'ds9', 'ds9-terminal', 'lsst-science-pipeline', 'nifs', 'niri', 'phosim', 'phosphoros', 'pluto', 'topcat', 'topcat-terminal']
     steps:
       -
         name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 1
       -
@@ -54,7 +53,7 @@ jobs:
           echo "Release Tag: ${{ needs.releaseer.outputs.tag_name }}"
           REGISTRY="images.canfar.net/"
           echo REGISTRY=${REGISTRY} >> $GITHUB_OUTPUT
-          IMAGE="canfar/${{ matrix.image }}"
+          IMAGE="canfar/base"
           echo IMAGE=${IMAGE} >> $GITHUB_OUTPUT
           FLAVOR=${{ matrix.python-version }}
           echo FLAVOR=${FLAVOR} >> $GITHUB_OUTPUT
@@ -80,8 +79,8 @@ jobs:
         uses: docker/build-push-action@v3
         id: build-push-production
         with:
-          context: science-containers/Dockerfiles/${{ matrix.image }}
-          file: science-containers/Dockerfiles/${{ matrix.image }}/Dockerfile
+          context: science-containers/Dockerfiles/base
+          file: science-containers/Dockerfiles/base/Dockerfile
           platforms: linux/amd64
           build-args:
             PYTHON_VERSION=${{ matrix.python-version }}
