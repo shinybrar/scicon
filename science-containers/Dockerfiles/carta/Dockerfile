@@ -16,5 +16,4 @@ ADD src/nsswitch.conf /etc/
 EXPOSE 6901
 RUN chmod -R a+rwx /carta
 
-CMD ["/carta/skaha-carta"]
-# CMD ["carta", " --no_browser"]
+CMD ["carta", "--no_browser"]
