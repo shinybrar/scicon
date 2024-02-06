@@ -12,7 +12,6 @@ ENV HOME /carta
 
 # nsswitch for correct sss lookup
 ADD src/nsswitch.conf /etc/
-ADD src/skaha-carta /carta/
 
 EXPOSE 6901
 RUN chmod -R a+rwx /carta
