@@ -10,7 +10,7 @@ FROM images.canfar.net/skaha/centos:5
 #ADD CentOS-Base.repo /etc/yum.repos.d/
 
 RUN yum clean all -y
-RUN yum makecache -y
+#RUN yum makecache -y
 RUN yum update -y
 
 #These are already included in the CANFAR base centos5 container
