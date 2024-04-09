@@ -1,0 +1,10 @@
+[fasttrack]
+name=CentOS-5 - fasttrack
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=fasttrack
+#baseurl=http://mirror.centos.org/centos/$releasever/fasttrack/$basearch/
+#baseurl=https://vault.centos.org/5.11/fasttrack/x86_64/
+#baseurl=http://archive.kernel.org/centos-vault/5.11/fasttrack/x86_64/
+baseurl=http://mirror.nsc.liu.se/centos-store/5.11/fasttrack/x86_64/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5

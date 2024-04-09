@@ -1,0 +1,12 @@
+At present, the files in this directory are to build a basic CentOS5 container
+with all of the basic linux software dependencies needed for early CASA
+versions (3.4 to 4.2).
+The CentOS5 repos have lately been starting to fail (2/4 mirrors fail during
+current builds, with various packages, etc).  So this base container will
+allow us to address any future casa container upgrades without having to
+count on the ongoing stability of the remaining two centos5 mirror sites.
+
+UPDATE Feb 7, 2024: this code no longer builds a CentOS5 repo either, but
+the one that built earlier is on harbor at skaha/centos.  The coding here
+is left in place in case it becomes necessary to try to rebuild again using
+another mirror site which is perhaps not broken yet.
