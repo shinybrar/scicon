@@ -1,0 +1,67 @@
+# CentOS-Sources.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the
+# remarked out baseurl= line instead.
+#
+#
+
+[base-source]
+name=CentOS-$releasever - Base Sources
+#baseurl=http://vault.centos.org/centos/$releasever/os/Source/
+#baseurl=http://vault.centos.org/5.11/os/Source/
+#baseurl=http://archive.kernel.org/centos-vault/5.11/os/Source
+#baseurl=http://archive.kernel.org/centos-vault/5.11/os/SRPMS/
+baseurl=http://mirror.nsc.liu.se/centos-store/5.11/os/Source/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+
+#released updates
+[updates-source]
+name=CentOS-$releasever - Updates Sources
+#baseurl=http://vault.centos.org/centos/$releasever/updates/Source/
+#baseurl=http://vault.centos.org/5.11/updates/Source/
+#baseurl=http://archive.kernel.org/centos-vault/5.11/updates/Source/
+baseurl=http://mirror.nsc.liu.se/centos-store/5.11/updates/Source/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+
+#additional packages that may be useful
+[extras-source]
+name=CentOS-$releasever - Extras Sources
+#baseurl=http://vault.centos.org/centos/$releasever/extras/Source/
+#baseurl=http://vault.centos.org/5.11/extras/Source/
+#baseurl=http://archive.kernel.org/centos-vault/5.11/extras/Source/
+baseurl=http://mirror.nsc.liu.se/centos-store/5.11/extras/Source/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+
+#additional packages that extend functionality of existing packages
+[centosplus-source]
+name=CentOS-$releasever - Plus Sources
+#baseurl=http://vault.centos.org/centos/$releasever/centosplus/Source/
+#baseurl=http://vault.centos.org/5.11/centosplus/Source/
+#baseurl=http://archive.kernel.org/centos-vault/5.11/centosplus/Source/
+baseurl=http://mirror.nsc.liu.se/centos-store/5.11/centosplus/Source/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
+
+#added for compatibility with the libselinux
+#additional packages that extend functionality of existing packages
+[libselinux-source]
+name=CentOS-$releasever - libselinux Sources
+#baseurl=http://vault.centos.org/centos/$releasever/centosplus/Source/
+#baseurl=http://vault.centos.org/5.11/centosplus/Source/
+#baseurl=http://archive.kernel.org/centos-vault/5.11/centosplus/Source/
+baseurl=http://mirror.nsc.liu.se/centos-store/5.11/centosplus/Source/
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-5
