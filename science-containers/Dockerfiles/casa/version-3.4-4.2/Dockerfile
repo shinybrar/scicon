@@ -1,20 +1,23 @@
-FROM centos:5
+FROM images.canfar.net/skaha/centos:5
+#NB: centos 5 repo no longer available directly from Docker
 
 # xterm dependency is an extra to get the casa shell in the display
 # perl was added for casa later than 5
 
+#coding below was needed when centos taken from source
 # Override old repo info with current urls
-RUN rm /etc/yum.repos.d/CentOS-Base.repo
-ADD CentOS-Base.repo /etc/yum.repos.d/
+#RUN rm /etc/yum.repos.d/CentOS-Base.repo
+#ADD CentOS-Base.repo /etc/yum.repos.d/
 
 RUN yum clean all -y
-RUN yum makecache -y
+#RUN yum makecache -y
 RUN yum update -y
 
-RUN yum install -y freetype libSM libXi libXrender libXrandr \
-	libXfixes libXcursor libXinerama fontconfig \
-	libxslt xauth xorg-x11-server-Xvfb dbus-x11 \
-	tkinter ImageMagick-c++ xterm perl
+#These are already included in the CANFAR base centos5 container
+#RUN yum install -y freetype libSM libXi libXrender libXrandr \
+#	libXfixes libXcursor libXinerama fontconfig \
+#	libxslt xauth xorg-x11-server-Xvfb dbus-x11 \
+#	tkinter ImageMagick-c++ xterm perl
 
 # setup all required env variables
 ARG CASA_RELEASE
@@ -52,4 +55,15 @@ ADD nsswitch.conf /etc/
 
 RUN chmod -R a+rwx /skaha
 
-ENTRYPOINT [ "/skaha/startup.sh" ]
+#Add in analysisUtils package
+RUN mkdir /opt/casa/analysisUtils
+RUN yum install -y wget
+RUN cd /opt/casa/analysisUtils && wget ftp://ftp.cv.nrao.edu/pub/casaguides/analysis_scripts.tar && tar -xvf analysis_scripts.tar
+#(if above doesn't work, can manually download the package and add as below)
+#ADD ./analysis_scripts.tar /opt/casa/analysisUtils/
+#NB: the analysisUtils path is added to the CASA startup file in the init.sh script     
+# (needs access to user's $HOME)
+
+#HK updated below
+#ENTRYPOINT [ "/skaha/startup.sh" ]
+CMD [ "/skaha/init.sh" ]
