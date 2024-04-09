@@ -1,19 +1,12 @@
-FROM centos:6
+FROM images.canfar.net/skaha/centos:6
+#NB: this is using a locally saved centos6 container with CASA-required
+# software pre-installed to aid in long-term stability.  Centos6 already
+# has not been maintained for many years
 
 # xterm dependency is an extra to get the casa shell in the display
 # perl was added for casa later than 5
 
-# Override old repo info with current urls
-RUN rm /etc/yum.repos.d/CentOS-Base.repo
-ADD CentOS-Base.repo /etc/yum.repos.d/
-
-RUN yum clean all -y
-RUN yum makecache -y
 RUN yum update -y
-RUN yum install -y freetype libSM libXi libXrender libXrandr \
-	libXfixes libXcursor libXinerama fontconfig \
-        libxslt xauth xorg-x11-server-Xvfb dbus-x11 \
-	tkinter ImageMagick-c++ xterm perl autoconf python-sphinx graphviz
 
 # setup all required env variables
 ARG CASA_RELEASE
@@ -43,8 +36,6 @@ RUN chown -R root:root /opt/${CASA_RELEASE} && ln -s /opt/${CASA_RELEASE} /opt/c
 
 #WORKDIR /home/guest
 
-RUN yum install -y sssd-client acl
-
 # updated to new leapsecond solution
 # Allow runtime symlink creation to the casa-data-repository
 # Create a dangling symlink to casa-data-repository so that after deployment
@@ -62,6 +53,16 @@ ADD startup.sh /skaha/
 RUN dbus-uuidgen --ensure
 
 ADD nsswitch.conf /etc/
+
+#Add in analysisUtils package
+RUN mkdir /opt/casa/analysisUtils
+RUN yum install -y wget
+RUN cd /opt/casa/analysisUtils && wget ftp://ftp.cv.nrao.edu/pub/casaguides/analysis_scripts.tar && tar -xvf analysis_scripts.tar
+#(if above doesn't work, can manually download the package and add as below)
+#ADD ./analysis_scripts.tar /opt/casa/analysisUtils/
+#NB: the analysisUtils path is added to the CASA startup file in the init.sh script     
+# (needs access to user's $HOME)
+
 
 #HK updated below
 #ENTRYPOINT [ "/skaha/startup.sh" ]
