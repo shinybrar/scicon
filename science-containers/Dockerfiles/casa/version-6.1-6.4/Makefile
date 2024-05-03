@@ -9,9 +9,9 @@ VERSIONS_OLD = \
 # 	casa-6.3.0-48 #\
 
 VERSIONS_PIPELINE = \
-	casa-6.4.1-12-pipeline-2022.2.0.64-py3.6
+	casa-6.1.1-15-pipeline-2020.1.0.40
+#	casa-6.4.1-12-pipeline-2022.2.0.64-py3.6
 # 	casa-6.2.1-7-pipeline-2021.2.0.128
-#	casa-6.1.1-15-pipeline-2020.1.0.40
 
 #!NB >casa6.4.3 versions have a different directory naming structure
 VERSIONS = \
