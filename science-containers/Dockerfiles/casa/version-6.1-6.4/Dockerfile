@@ -1,19 +1,7 @@
-FROM centos:6
+FROM images.canfar.net/skaha/centos:7
 
 # xterm dependency is an extra to get the casa shell in the display
 # perl was added for casa later than 5
-
-# Override old repo info with current urls
-RUN rm /etc/yum.repos.d/CentOS-Base.repo
-ADD CentOS-Base.repo /etc/yum.repos.d/
-
-RUN yum clean all -y
-RUN yum makecache -y
-RUN yum update -y
-RUN yum install -y freetype libSM libXi libXrender libXrandr \
-	libXfixes libXcursor libXinerama fontconfig \
-        libxslt xauth xorg-x11-server-Xvfb dbus-x11 \
-	tkinter ImageMagick-c++ xterm perl autoconf python-sphinx graphviz xz
 
 # setup all required env variables
 ARG CASA_RELEASE
@@ -30,7 +18,6 @@ ADD ${CASA_RELEASE}.tar.xz /opt/
 # chown because the untarred casa has wrong owner/group
 RUN chown -R root:root /opt/${CASA_RELEASE%%-py*} && ln -s /opt/${CASA_RELEASE%%-py*} /opt/casa
 
-RUN yum install -y sssd-client acl
 
 # add the admit enhancement (issue #25)
 RUN yum install -y tcsh
@@ -53,6 +40,16 @@ RUN cd /opt/${CASA_RELEASE%%-py*} && \
     ln -s /arc/projects/casa-data-repository/ /opt/${CASA_RELEASE%%-py*}/${REPLACED_DATA}
 RUN rm -rf /arc
 
+#AnalysisUtils package
+RUN mkdir /opt/casa/analysisUtils
+RUN yum install -y wget
+RUN cd /opt/casa/analysisUtils && wget ftp://ftp.cv.nrao.edu/pub/casaguides/analysis_scripts.tar && tar -xvf analysis_scripts.tar
+#(if above doesn't work, can manually download the package and add as below)
+#ADD ./analysis_scripts.tar /opt/casa/analysisUtils/
+#NB: the analysisUtils path is added to the CASA startup file in the init.sh script
+# (needs access to user's $HOME)
+
+
 RUN mkdir /skaha
 ADD init.sh /skaha/
 
@@ -64,8 +61,6 @@ WORKDIR /opt
 COPY extract-casaviewer.sh .
 RUN bash extract-casaviewer.sh && rm extract-casaviewer.sh
 
-#RUN chmod 755 /opt/squashfs-root /opt/squashfs-root/usr /opt/squashfs-root/usr/*
-#COMMENTED BELOW LINE OUT ONLY FOR TESTING PURPOSES.  NEED TO INCLUDE!
 RUN chmod 777 -R /opt/squashfs-root /opt/squashfs-root/usr /opt/squashfs-root/usr/*
 
 CMD [ "/skaha/init.sh" ]
