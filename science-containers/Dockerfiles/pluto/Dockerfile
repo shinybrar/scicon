@@ -6,9 +6,9 @@ RUN yum makecache -y && \
     yum clean all
 
 WORKDIR /
-RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.9/julia-1.9.0-rc2-linux-x86_64.tar.gz && \
-    tar zxvf julia-1.9.0-rc2-linux-x86_64.tar.gz && \
-    rm julia-1.9.0-rc2-linux-x86_64.tar.gz
+RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.3-linux-x86_64.tar.gz && \
+    tar zxvf julia-1.10.3-linux-x86_64.tar.gz && \
+    rm julia-1.10.3-linux-x86_64.tar.gz
 
 # We want to set up Julia carefully.
 # We want some packages e.g. Pluto backed into the container,
@@ -29,7 +29,7 @@ ENV JULIA_DEPOT_PATH=/opt/julia
 ENV JULIA_PKGDIR=/opt/julia
 RUN mkdir "${JULIA_PKGDIR}" && mkdir "${JULIA_PKGDIR}/artifacts"
 
-ENV PATH="/julia-1.9.0-rc2/bin:${PATH}"
+ENV PATH="/julia-1.10.3/bin:${PATH}"
 RUN echo "PATH: ${PATH}"
 
 # Copy a script that we will use to correct permissions after running certain commands
@@ -63,7 +63,7 @@ RUN rm -rf ${JULIA_DEPOT_PATH}/registries/General && chmod -R 755 ${JULIA_DEPOT_
 # New pacakges get installed into here:
 ENV JULIA_DEPOT_PATH="~/.julia:$JULIA_DEPOT_PATH"
 # Packages can get loaded from both depots
-ENV JULIA_LOAD_PATH="/opt/julia/environments/v1.9/Project.toml:"
+ENV JULIA_LOAD_PATH="/opt/julia/environments/v1.10/Project.toml:"
 # Default project environment kept in the user's home directory
 ENV JULIA_PROJECT="~"
 
