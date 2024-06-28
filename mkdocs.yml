@@ -118,4 +118,5 @@ nav:
       - Downloading from the ALMA archive (browser): general/ALMA_Desktop/archive_download
       - Downloading from the ALMA archive (script): general/ALMA_Desktop/archive_script_download
       - Example of reducing image data: general/ALMA_Desktop/typical_reduction
+      - Notes on CASA Containers (features, known bugs, etc): general/ALMA_Desktop/casa_containers
   - FAQ: complete/faq.md
