@@ -87,7 +87,6 @@ nav:
   - Introduction and Access:
     - complete/index.md
   - General User Documentation:
-    - general/index.md
     - New User Documentation:
       - general/NewUser/Overview.md
       - Login: general/NewUser/Login.md
