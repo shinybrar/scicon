@@ -3,14 +3,10 @@
 # AppImage fix applies now too casaviewer, casaplotms
 # and new: casalogger, casaplotserver, casatablebrowser, casafeather
 
-#casavers=casa-6.5.4-9-pipeline-2023.1.0.124
-#casavers=casa-6.5.3-28-pipeline-2023.0.0.36
-#casavers=casa-6.4.1-12-pipeline-2022.2.0.64
-#casavers=casa-6.2.1-7-pipeline-2021.2.0.128
-casavers=casa-6.1.1-15-pipeline-2020.1.0.40
+casavers=casa-6.2.0-124
 #casavers=casa-6.3.0-48
-#casavers=casa-6.2.0-124
-#casavers=casa-6.1.0-118
+#casavers=casa-6.2.1-7-pipeline-2021.2.0.128
+#casavers=casa-6.4.1-12-pipeline-2022.2.0.64
 #casavers=casa-6.4.0-16
 #casavers=casa-6.4.3-27
 

@@ -4,21 +4,20 @@ FROM ubuntu:20.04
 # standard software/libraries that CASA versions need to run.  This container
 # is stored on harbor for to assist with long term stability
 
-RUN apt update
-RUN apt upgrade -y
-
-RUN apt install -y libsm6 libxi6 libxrender1 libxrandr2 \
+RUN apt update && \
+    apt upgrade -y && \
+    apt install -y libsm6 libxi6 libxrender1 libxrandr2 \
         libxfixes3 libxcursor1 libxinerama1 fontconfig \
-        imagemagick xterm
-RUN apt install -y perl autoconf autoconf graphviz xz-utils \
-        gfortran libcanberra-gtk-module libsnl0
+        imagemagick xterm && \
+    apt install -y perl autoconf autoconf graphviz xz-utils \
+        gfortran libcanberra-gtk-module libsnl0 && \
 #NB: for 20.04, need libsnl0 not libsnl-dev
-RUN apt install -y libxslt1.1 xauth xorg xvfb dbus
-
-RUN apt install -y libfuse2 
-
+    apt install -y libxslt1.1 xauth xorg xvfb dbus && \
+#
+    apt install -y libfuse2  && \
 #Add in firefox and library dependency
-RUN apt install -y firefox libpci3
-
-RUN apt install -y sssd acl
-
+    apt install -y firefox libpci3 && \
+    apt install -y sssd acl && \
+    apt install -y wget && \
+#add in tcsh for admit installation
+    apt install -y tcsh
